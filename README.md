@@ -159,3 +159,17 @@ npm run build
 npm start
 ```
 
+## Deploy na Vercel (Serverless)
+
+Este repositório suporta deploy como **Vercel Functions** via `api/[...path].ts`.
+
+- **Variáveis de ambiente (Vercel Project → Settings → Environment Variables)**:
+  - `SUPABASE_URL` (opcional se você usar a default do projeto, mas recomendado configurar)
+  - `SUPABASE_SERVICE_ROLE_KEY` (recomendado para backend) **ou** `SUPABASE_KEY`
+- **Rotas**:
+  - funciona com `/api/...` (ex.: `/api/usuarios`)
+  - e também com `/<recurso>` por rewrite (ex.: `/usuarios`)
+  - health: `/health` (ou `/api/health`)
+
+Se aparecer “This Serverless Function has crashed”, veja os logs em **Vercel → Deployments → (seu deploy) → Functions/Logs**.
+

@@ -1,9 +1,9 @@
 import { createApp } from './app';
 import { env } from './env';
 
-const app = createApp();
+export const app = createApp();
 
-function listenWithFallback(startPort: number, attempts: number) {
+export function listenWithFallback(startPort: number, attempts: number) {
   const tryListen = (port: number, remaining: number) => {
     const server = app.listen(port, () => {
       // eslint-disable-next-line no-console
@@ -28,5 +28,10 @@ function listenWithFallback(startPort: number, attempts: number) {
   tryListen(startPort, attempts);
 }
 
-listenWithFallback(env.PORT, 20);
+// Só inicia servidor quando executado diretamente (local/VM).
+// Em ambientes serverless (ex.: Vercel), este arquivo pode ser importado como módulo,
+// e não devemos abrir porta com app.listen() no "top-level".
+if (require.main === module) {
+  listenWithFallback(env.PORT, 20);
+}
 
