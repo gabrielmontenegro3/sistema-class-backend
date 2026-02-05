@@ -31,3 +31,10 @@ export function createApp() {
   return app;
 }
 
+// Compatibilidade com Vercel Functions:
+// em alguns presets/configs, a Vercel tenta tratar `src/app` como entrypoint de Function
+// e exige um `export default` que seja uma função/servidor. Um app do Express é "callable"
+// (req, res), então atende esse requisito.
+const app = createApp();
+export default app;
+
