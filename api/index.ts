@@ -15,6 +15,18 @@ export default function handler(req: IncomingMessage & { url?: string }, res: Se
     // ignore
   }
 
+  // A Vercel também pode injetar `req.query` como helper (objeto),
+  // mas no Express `req.query` é um getter calculado a partir de `req.url`.
+  // Se existir um "own property" `query`, ele sombreia o getter do Express e
+  // pode vazar parâmetros internos (ex.: `path`) para a aplicação.
+  try {
+    if (Object.prototype.hasOwnProperty.call(req as any, 'query')) {
+      delete (req as any).query;
+    }
+  } catch {
+    // ignore
+  }
+
   const rawUrl = req.url ?? '/';
   const u = new URL(rawUrl, 'http://localhost');
   const p = u.searchParams.get('path') ?? '';

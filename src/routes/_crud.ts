@@ -42,6 +42,9 @@ export function createCrudRouter(
       const supabase = getSupabase();
       let q = supabase.from(table).select(select);
       for (const [k, v] of Object.entries(req.query)) {
+        // `path` pode aparecer por rewrites/catch-all de deploys (ex.: Vercel).
+        // Não é um filtro de tabela e causaria erro "column <table>.path does not exist".
+        if (k === 'path') continue;
         if (typeof v === 'string' && v.length > 0) q = q.eq(k, v);
       }
       const r = await q;
