@@ -8,6 +8,7 @@ API básica em **Node + Express + TypeScript**, conectada ao **Supabase**.
 - Leia `TESTES.md` para o fluxo de criação/aplicação de testes.
 - Leia `AGENDA.md` para o fluxo de Agenda/Atividades.
 - Leia `LEITURA.md` para o fluxo de Leitura/Resumo/Avaliações.
+- Leia `DICIONARIO.md` para o fluxo de Dicionário/Tentativas/Avaliações.
 
 ## Como rodar (Windows / PowerShell)
 
